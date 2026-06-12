@@ -31,7 +31,7 @@ func ConnectDatabase() {
 		panic("failed to connect database: " + err.Error())
 	}
 
-	database.AutoMigrate(&Book{})
+	database.AutoMigrate(&Book{}, &User{})
 
 	DB = database
 	log.Println("Database connected successfully")
