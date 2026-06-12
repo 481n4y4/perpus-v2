@@ -15,11 +15,11 @@ var DB *gorm.DB
 func ConnectDatabase() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Println("Warning: No .env file found, user system enviroment variables")
+		log.Printf("Warning: no .env file found, user system enviroment variable")
 	}
 
 	user := os.Getenv("DB_USER")
-	password := os.Getenv(("DB_PASSWORD"))
+	password := os.Getenv("DB_PASSWORD")
 	host := os.Getenv("DB_HOST")
 	port := os.Getenv("DB_PORT")
 	dbname := os.Getenv("DB_NAME")
@@ -31,7 +31,7 @@ func ConnectDatabase() {
 		panic("failed to connect database: " + err.Error())
 	}
 
-	database.AutoMigrate(&Post{})
+	database.AutoMigrate(&Book{})
 
 	DB = database
 	log.Println("Database connected successfully")

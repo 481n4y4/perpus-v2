@@ -18,11 +18,11 @@ func main() {
 		})
 	})
 
-	router.GET("/api/posts", controllers.FindPosts)
-	router.POST("/api/posts", controllers.StorePost)
-	router.GET("/api/posts/:id", controllers.FindPostsById)
-	router.PUT("/api/posts/:id", controllers.UpdatePost)
-	router.DELETE("/api/posts/:id", controllers.DeletePost)
+	router.GET("/api/books", controllers.FindBooks)
+	router.POST("/api/books", controllers.StoreBook)
+	router.GET("/api/books/:id", controllers.FindBookById)
+	router.PUT("/api/books/:id", controllers.UpdateBook)
+	router.DELETE("/api/books/:id", controllers.DeleteBook)
 
 	router.Run(":3000")
 }
