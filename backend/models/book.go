@@ -5,7 +5,7 @@ type Book struct {
 	Name         string `json:"name"`
 	Author       string `json:"author"`
 	Publisher    string `json:"publisher"`
-	Publish_date string `json:"publish_date"`
+	PublishDate int    `json:"publish_date"`
 	Price        int    `json:"price"`
 	Stock        int    `json:"stock"`
 }

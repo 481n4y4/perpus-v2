@@ -10,16 +10,16 @@ import (
 )
 
 type ValidateBookInput struct {
-	Name         string `json:"name" binding:"required"`
-	Author       string `json:"author" binding:"required"`
-	Publisher    string `json:"publisher" binding:"required"`
-	Publish_date string `json:"publish_date" binding:"required"`
-	Price        int    `json:"price" binding:"required"`
-	Stock        int    `json:"stock" binding:"required"`
+	Name        string `json:"name" binding:"required"`
+	Author      string `json:"author" binding:"required"`
+	Publisher   string `json:"publisher" binding:"required"`
+	PublishDate int    `json:"publish_date" binding:"required"`
+	Price       int    `json:"price" binding:"required"`
+	Stock       int    `json:"stock" binding:"required"`
 }
 
 type ErrorMsg struct {
-	Field string `json:"field"`
+	Field   string `json:"field"`
 	Message string `json:"message"`
 }
 
@@ -57,19 +57,19 @@ func StoreBook(c *gin.Context) {
 	}
 
 	book := models.Book{
-		Name: input.Name,
-		Author: input.Author,
-		Publisher: input.Publisher,
-		Publish_date: input.Publish_date,
-		Price: input.Price,
-		Stock: input.Stock,
+		Name:        input.Name,
+		Author:      input.Author,
+		Publisher:   input.Publisher,
+		PublishDate: input.PublishDate,
+		Price:       input.Price,
+		Stock:       input.Stock,
 	}
 	models.DB.Create(&book)
 
 	c.JSON(201, gin.H{
 		"success": true,
 		"message": "Book Created Successfully",
-		"data": book,
+		"data":    book,
 	})
 }
 
@@ -82,8 +82,8 @@ func FindBookById(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"success": true,
-		"message": "Detail Data Post By ID : " +c.Param("id"),
-		"data": book,
+		"message": "Detail Data Post By ID : " + c.Param("id"),
+		"data":    book,
 	})
 }
 
@@ -111,7 +111,7 @@ func UpdateBook(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"success": true,
 		"message": "Book Updated Successfully",
-		"data": book,
+		"data":    book,
 	})
 }
 
