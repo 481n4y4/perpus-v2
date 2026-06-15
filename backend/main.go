@@ -46,5 +46,5 @@ func main() {
 	// router.PUT("/api/books/:id", controllers.UpdateBook)
 	// router.DELETE("/api/books/:id", controllers.DeleteBook)
 
-	router.Run(":3000")
+	router.Run(":8080")
 }
