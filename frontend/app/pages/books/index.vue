@@ -67,7 +67,7 @@
                   </td>
                   <td class="px-3 py-2">
                     <div class="flex flex-row gap-1">
-                      <a href="#" class="bg-green-600 hover:bg-green-400 text-white font-semibold px-3 py-2 rounded inline-block text-xs cursor-default">Detail</a>
+                      <NuxtLink :to="`/books/detail/${books.id}`" class="bg-green-600 hover:bg-green-400 text-white font-semibold px-3 py-2 rounded inline-block text-xs cursor-default">Detail</NuxtLink>
                       <NuxtLink :to="`/books/${books.id}`" class="bg-blue-600 hover:bg-blue-400 text-white font-semibold px-3 py-2 rounded inline-block text-xs cursor-default">Edit</NuxtLink>
                       <button class="bg-red-600 hover:bg-red-400 text-white font-semibold px-3 py-2 rounded text-xs cursor-default">Delete</button>
                     </div>
