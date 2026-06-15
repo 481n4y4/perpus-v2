@@ -4,7 +4,6 @@ import (
 	"backend/models"
 	"errors"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -14,7 +13,7 @@ type ValidateBookInput struct {
 	Name        string `json:"name" binding:"required"`
 	Author      string `json:"author" binding:"required"`
 	Publisher   string `json:"publisher" binding:"required"`
-	PublishDate time.Time    `json:"publish_date" binding:"required"`
+	PublishDate int    `json:"publish_date" binding:"required"`
 	Price       int    `json:"price" binding:"required"`
 	Stock       int    `json:"stock" binding:"required"`
 }

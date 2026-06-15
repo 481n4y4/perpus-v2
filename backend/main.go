@@ -2,18 +2,22 @@ package main
 
 import (
 	"backend/controllers"
+	"flag"
 	// "backend/middleware"
 	"backend/models"
 
-	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	router := gin.Default()
 	router.Use(cors.Default())
 
-	models.ConnectDatabase()
+	fresh := flag.Bool("fresh", false, "Hapus dan buat ulang semua tabel")
+    flag.Parse()
+
+	models.ConnectDatabase(*fresh)
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
