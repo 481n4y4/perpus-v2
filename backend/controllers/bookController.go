@@ -52,7 +52,13 @@ func StoreBook(c *gin.Context) {
 				out[i] = ErrorMsg{fe.Field(), GetErrorMsg(fe)}
 			}
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": out})
+			return
 		}
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"success": false,
+			"message": "Format atau tipe data yang dikirim tidak sesuai",
+			"error":   err.Error(),
+		})
 		return
 	}
 
