@@ -16,8 +16,10 @@
         </h1>
       </div>
 
-      <div class="flex flex-col mx-auto my-10 max-w-3/4">
-        <button
+      <div v-else class="flex flex-col mx-auto my-10 max-w-3/4">
+        <!-- Action Buttons -->
+        <div class="flex justify-end gap-2 mb-3">
+          <button
             class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded"
             @click="refreshBooks"
           >
@@ -31,6 +33,7 @@
             Add Book
           </NuxtLink>
         </div>
+        </div> 
 
         <!-- Table Container -->
         <div class="p-2 mx-auto text-white w-full">
@@ -80,8 +83,7 @@
 </template>
 
 <script setup>
+
 const apiBase = useRuntimeConfig().public.apiBase
 const {data: books, pending: pendingBooks, error: errorBooks, refresh: refreshBooks} = await useFetch(`${apiBase}/books`)
-
-
 </script>
