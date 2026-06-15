@@ -69,7 +69,7 @@
                     <div class="flex flex-row gap-1">
                       <NuxtLink :to="`/books/detail/${books.id}`" class="bg-green-600 hover:bg-green-400 text-white font-semibold px-3 py-2 rounded inline-block text-xs cursor-default">Detail</NuxtLink>
                       <NuxtLink :to="`/books/${books.id}`" class="bg-blue-600 hover:bg-blue-400 text-white font-semibold px-3 py-2 rounded inline-block text-xs cursor-default">Edit</NuxtLink>
-                      <button class="bg-red-600 hover:bg-red-400 text-white font-semibold px-3 py-2 rounded text-xs cursor-default">Delete</button>
+                      <button @click="handleDelete(books.id)" class="bg-red-600 hover:bg-red-400 text-white font-semibold px-3 py-2 rounded text-xs cursor-default">Delete</button>
                     </div>
                   </td>
                 </tr>
@@ -83,7 +83,21 @@
 </template>
 
 <script setup>
-
 const apiBase = useRuntimeConfig().public.apiBase
 const {data: books, pending: pendingBooks, error: errorBooks, refresh: refreshBooks} = await useFetch(`${apiBase}/books`)
+
+const handleDelete = async (id) => {
+    try {
+        await $fetch(`${apiBase}/books/${id}`, {
+            method: "DELETE"
+        })
+        alert("book successfully deleted")
+        refreshBooks()
+    } catch (err) {
+        console.error(err)
+        const backendMessage = err.response?._data?.error || err.message
+        alert("Failed to delete book: " + backendMessage)
+    }
+    
+}
 </script>
