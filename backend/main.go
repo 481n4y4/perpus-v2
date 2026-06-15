@@ -2,7 +2,7 @@ package main
 
 import (
 	"backend/controllers"
-	"backend/middleware"
+	// "backend/middleware"
 	"backend/models"
 
 	"github.com/gin-gonic/gin"
@@ -32,7 +32,7 @@ func main() {
 	
 	// CRUD Books
 	bookApi := router.Group("/api")
-	bookApi.Use(middleware.RequireAuth())
+	// bookApi.Use(middleware.RequireAuth())
 	{
 		bookApi.GET("/books", controllers.FindBooks)
 		bookApi.POST("/books", controllers.StoreBook)
