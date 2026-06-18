@@ -135,6 +135,7 @@
 <script setup>
 definePageMeta({
   layout: "book",
+  middleware: "auth"
 });
 
 const apiBase = useRuntimeConfig().public.apiBase;

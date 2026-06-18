@@ -47,7 +47,7 @@
       >
       <NuxtLink
         v-else
-        to="/auth/signin"
+        to="/auth/login"
         class="text-sm/6 font-semibold text-white"
         >Log in <span aria-hidden="true">&rarr;</span></NuxtLink
       >

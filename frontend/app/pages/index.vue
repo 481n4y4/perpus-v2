@@ -22,7 +22,7 @@
             dan pengetahuan Anda dengan sistem perpustakaan yang modern dan
             mudah digunakan.
           </p>
-          <!-- <div class="mt-10 flex items-center justify-center gap-x-6">
+          <div class="mt-10 flex items-center justify-center gap-x-6">
             <NuxtLink
               v-if="token"
               to="/books"
@@ -31,11 +31,11 @@
             >
             <NuxtLink
               v-else
-              to="/auth/signup"
+              to="/auth/register"
               class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >Sign Up</NuxtLink
             >
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
@@ -43,6 +43,6 @@
 </template>
 
 
-<!-- <script setup>
+<script setup>
 const token = useCookie("auth_token");
-</script> -->
+</script>
