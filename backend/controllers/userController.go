@@ -103,34 +103,89 @@ func Login(c *gin.Context) {
 	}
 
 	c.SetCookie(
-		"token",
+		"auth_token",
 		tokenString,
 		3600*24,
 		"/",
 		"",
 		false,
-		true,
+		false,
 	)
 
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
 		"message": "Login successfully",
+		"token":   tokenString,
 	})
 }
 
 func Logout(c *gin.Context) {
 	c.SetCookie(
-		"token",   // Nama cookie yang mau dihapus
-        "",        // Isinya dikosongkan
-        -1,        // MaxAge -1 memaksa browser untuk langsung menghapus cookie ini detik ini juga
-        "/",       // Path harus sama dengan saat kamu create cookie di fungsi Login
-        "",        // Domain disamakan
-        false,     // Secure disamakan
-        true,      // HttpOnly tetap true
+		"auth_token", // Nama cookie yang mau dihapus
+		"",           // Isinya dikosongkan
+		-1,           // MaxAge -1 memaksa browser untuk langsung menghapus cookie ini detik ini juga
+		"/",          // Path harus sama dengan saat kamu create cookie di fungsi Login
+		"",           // Domain disamakan
+		false,        // Secure disamakan
+		false,        // HttpOnly false
 	)
 
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
 		"message": "Logout successfully",
+	})
+}
+
+func Me(c *gin.Context) {
+	tokenString, err := c.Cookie("auth_token")
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"success": false,
+			"message": "Kamu belum login atau sesi telah berakhir",
+		})
+		return
+	}
+
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errors.New("method signing token tidak valid")
+		}
+		return []byte(os.Getenv("SECRET_JWT")), nil
+	})
+
+	if err != nil || !token.Valid {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"success": false,
+			"message": "Token tidak valid atau sudah kedaluwarsa",
+		})
+	}
+
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"success": false,
+			"message": "Gagal membaca data di dalam token",
+		})
+	}
+
+	userId := claims["sub"]
+
+	var user models.User
+	if err := models.DB.First(&user, userId).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"success": false,
+			"message": "User tidak ditemukan di sistem",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"message": "Berhasil mengambil data profile",
+		"data": gin.H{
+			"id":    user.ID,
+			"name":  user.Name,
+			"email": user.Email,
+		},
 	})
 }
